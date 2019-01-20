@@ -1,4 +1,4 @@
-#	Desenvolvido_por: Rafael Nascimento
+#	Desenvolvido por: Rafael Nascimento
 #	JUKEBOX: reproduz musicas conforme a escolha do usuario.
 #	Habilite pseudo-instrucoes e delayed branching.
 
