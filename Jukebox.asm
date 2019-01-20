@@ -1,6 +1,6 @@
-#	Desenvolvido por: Rafael Nascimento
-#	JUKEBOX: reproduz músicas conforme a escolha do usuário.
-#	Habilite pseudo-instruções e delayed branching.
+#	Desenvolvido_por: Rafael Nascimento
+#	JUKEBOX: reproduz musicas conforme a escolha do usuario.
+#	Habilite pseudo-instrucoes e delayed branching.
 
 .data
 	instrumento:	.word 0 #Valor Default para o instrumento.
