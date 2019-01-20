@@ -1,33 +1,26 @@
-#	Rafael Nascimento 15200084
-#	O Programa È bem intuitivo. E tem as seguintes funÁıes:
-# 	Habilitar pseudo-instruÁıes
-#	1-	Verifica se o RG, CPF ou CNPJ È v·lido.
-#	ObservaÁ„o 1: n„o funciona com RGs do Rio Grande do Sul, porque estes tem 10 dÌgitos, sÛ funciona com 9 digitos ou menos,
-#  caso tenha menos de 9 dÌgitos, deve ser preenchido com zero no comeÁo para completar os nove digÌtos.
-#	ObservaÁ„o 2: No caso do CPF da verificaÁ„o de validade do CPF tambÈm È exibido o estado que foi emitido, baseado no nono digito, que È o 
-#  digito que representa o estado que foi emitido.
-#	2-	Gera RG, CPF ou CNPJ È v·lido.
-#	3-	Gera cÛdigo verificador.
+#	Desenvolvido_por: Rafael Nascimento 15200084
+#	O Programa eh bem intuitivo. E tem as seguintes funcoes:
+# 	Habilitar pseudo-instru√ß√µes
 
 
 .data
 	# 19.190.000-X
-	stringMenuPrincipal:	.asciiz "Validador & Crack\n\nEscolha uma opÁ„o:\n1- RG\n2- CPF\n3- CNPJ\n\n"
-	erroDeEntrada1:	.asciiz "Entrada inv·lida"
-	erroDeEntrada2: .asciiz "Escolha uma opÁ„o"
+	stringMenuPrincipal:	.asciiz "Validador & Crack\n\nEscolha uma op√ß√£o:\n1- RG\n2- CPF\n3- CNPJ\n\n"
+	erroDeEntrada1:	.asciiz "Entrada inv√°lida"
+	erroDeEntrada2: .asciiz "Escolha uma op√ß√£o"
 	erroDeEntrada3: .asciiz "Entre com um valor"
 	fimDaConsulta:	.asciiz "Fim da Consulta"
-	stringMenuRG:	.asciiz "RG - Validador & Crack\n\nEscolha uma opÁ„o:\n1- Verificar RG\n2- Gerar RG v·lido\n3- Gerar cÛdigo verificador\n\n"
-	stringMenuCPF:	.asciiz "CPF - Validador & Crack\n\nEscolha uma opÁ„o:\n1- Verificar CPF\n2- Gerar CPF v·lido\n3- Gerar cÛdigo verificador\n\n"
-	stringMenuCNPJ:	.asciiz "CNPJ - Validador & Crack\n\nEscolha uma opÁ„o:\n1- Verificar CNPJ\n2- Gerar CNPJ v·lido\n3- Gerar cÛdigo verificador\n\n"
+	stringMenuRG:	.asciiz "RG - Validador & Crack\n\nEscolha uma op√ß√£o:\n1- Verificar RG\n2- Gerar RG v√°lido\n3- Gerar c√≥digo verificador\n\n"
+	stringMenuCPF:	.asciiz "CPF - Validador & Crack\n\nEscolha uma op√ß√£o:\n1- Verificar CPF\n2- Gerar CPF v√°lido\n3- Gerar c√≥digo verificador\n\n"
+	stringMenuCNPJ:	.asciiz "CNPJ - Validador & Crack\n\nEscolha uma op√ß√£o:\n1- Verificar CNPJ\n2- Gerar CNPJ v√°lido\n3- Gerar c√≥digo verificador\n\n"
 	entreRG:	.asciiz "Entre com o RG:\n\n"
 	entreRG8:	.asciiz "Entre com 8 digitos:\n\n"
-	erroRG:	.asciiz "O RG deve ter 9 digÌtos\n"
+	erroRG:	.asciiz "O RG deve ter 9 dig√≠tos\n"
 	erroRG8:	.asciiz "A entrada deve ter 8 digitos\n"
 	textoRg8:.asciiz "RG: "
 	textoRg:.asciiz "O RG: "
-	rgValido:.asciiz " È v·lido"
-	rgInvalido:.asciiz " È inv·lido"
+	rgValido:.asciiz " √© v√°lido"
+	rgInvalido:.asciiz " √© inv√°lido"
 	ponto: .asciiz "."
 	traco: .asciiz "-"
 	barraZero: .asciiz "\0"
@@ -46,15 +39,15 @@
 	CPF: .space 16
 	barra: .asciiz "/"
 	CPFNum:	.space 32
-	regiao1: .asciiz "\n\nEmitido em: Distrito Federal, Goi·s,\nMato Grosso do Sul ou Tocantins\n "
-	regiao2: .asciiz "\n\nEmitido em: Par·, Amazonas,\n     Acre, Amap·, RondÙnia\n              ou Roraima\n "
-	regiao3: .asciiz "\n\nEmitido em: Cear·, Maranh„o\n                 ou PiauÌ\n "
-	regiao4: .asciiz "\n\n   Emitido em: Pernambuco,\nRio Grande do Norte, ParaÌba\n               ou Alagoas\n "
+	regiao1: .asciiz "\n\nEmitido em: Distrito Federal, Goi√°s,\nMato Grosso do Sul ou Tocantins\n "
+	regiao2: .asciiz "\n\nEmitido em: Par√°, Amazonas,\n     Acre, Amap√°, Rond√¥nia\n              ou Roraima\n "
+	regiao3: .asciiz "\n\nEmitido em: Cear√°, Maranh√£o\n                 ou Piau√≠\n "
+	regiao4: .asciiz "\n\n   Emitido em: Pernambuco,\nRio Grande do Norte, Para√≠ba\n               ou Alagoas\n "
 	regiao5: .asciiz "\n\n Emitido em: Bahia ou Sergipe\n "
 	regiao6: .asciiz "\n\n     Emitido em: Minas Gerais\n "
-	regiao7: .asciiz "\n\n  Emitido em: Rio de Janeiro\n         ou EspÌrito Santo\n "
-	regiao8: .asciiz "\n\n      Emitido em: S„o Paulo\n "
-	regiao9: .asciiz "\n\n  Emitido em: Paran· ou Santa\n                 Catarina\n "
+	regiao7: .asciiz "\n\n  Emitido em: Rio de Janeiro\n         ou Esp√≠rito Santo\n "
+	regiao8: .asciiz "\n\n      Emitido em: S√£o Paulo\n "
+	regiao9: .asciiz "\n\n  Emitido em: Paran√° ou Santa\n                 Catarina\n "
 	regiao0: .asciiz "\n\nEmitido em: Rio Grande do Sul\n "
 	CNPJ: .space 16
 	entreCNPJ: .asciiz "Entre com o CNPJ:\n\n"
@@ -76,12 +69,12 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 		nop
 		beq $a1, -2, Fim 	#Clicou no cancelar
 		nop
-		beq $a1, -3, erro2 	#Clicou em ok, mas n„o entrou com nada
+		beq $a1, -3, erro2 	#Clicou em ok, mas n√£o entrou com nada
 		nop
 	
-		bgt $a0, 3, erro1 	#Usu·rio entrou com valor maior que 3
+		bgt $a0, 3, erro1 	#Usu√°rio entrou com valor maior que 3
 		nop
-		ble $a0, 0, erro1 	#Usu·rio entrou com valor menor que 0
+		ble $a0, 0, erro1 	#Usu√°rio entrou com valor menor que 0
 		nop
 		
 		beq $a0, 1, menuRG
@@ -91,14 +84,14 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 		beq $a0, 3, menuCNPJ
 		nop
 
-		erro1:	la $a0, erroDeEntrada1 #Entrada inv·lida
+		erro1:	la $a0, erroDeEntrada1 #Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j menuPrincipal
 			nop
 
-		erro2:	la $a0, erroDeEntrada2 #Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+		erro2:	la $a0, erroDeEntrada2 #Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 			li $a1, 0
 			li $v0, 55
 			syscall
@@ -114,31 +107,31 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 			nop
 			beq $a1, -2, menuPrincipal 	#Clicou no cancelar
 			nop
-			beq $a1, -3, erro4 		#Clicou em ok, mas n„o entrou com nada
+			beq $a1, -3, erro4 		#Clicou em ok, mas n√£o entrou com nada
 			nop
 	
-			bgt $a0, 3, erro3 		#Usu·rio entrou com valor maior que 3
+			bgt $a0, 3, erro3 		#Usu√°rio entrou com valor maior que 3
 			nop
-			ble $a0, 0, erro3 		#Usu·rio entrou com valor menor que 0
+			ble $a0, 0, erro3 		#Usu√°rio entrou com valor menor que 0
 			nop
 		
 			beq $a0, 1, verificarRG		#Verificar Validade de RG
 			nop
 			
-			beq $a0, 2, gerAutomatico	#Gerador de RG V·lido
+			beq $a0, 2, gerAutomatico	#Gerador de RG V√°lido
 			nop
 			
 			beq $a0, 3, verificarRG8
 			nop
 
-			erro3:	la $a0, erroDeEntrada1 	#Entrada inv·lida
+			erro3:	la $a0, erroDeEntrada1 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
 				j menuRG
 				nop
 
-			erro4:	la $a0, erroDeEntrada2 	#Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+			erro4:	la $a0, erroDeEntrada2 	#Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -156,18 +149,18 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 			nop
 			beq $a1, -2, menuPrincipal 	#Clicou no cancelar
 			nop
-			beq $a1, -3, erro6 		#Clicou em ok, mas n„o entrou com nada
+			beq $a1, -3, erro6 		#Clicou em ok, mas n√£o entrou com nada
 			nop
 	
-			bgt $a0, 3, erro5 		#Usu·rio entrou com valor maior que 3
+			bgt $a0, 3, erro5 		#Usu√°rio entrou com valor maior que 3
 			nop
-			ble $a0, 0, erro5 		#Usu·rio entrou com valor menor que 0
+			ble $a0, 0, erro5 		#Usu√°rio entrou com valor menor que 0
 			nop
 			
 			beq $a0, 1, verificarCPF		#Verificar Validade de RG
 			nop
 			
-			beq $a0, 2, gerAutomaticoCPF	#Gerador de RG V·lido
+			beq $a0, 2, gerAutomaticoCPF	#Gerador de RG V√°lido
 			nop
 			
 			beq $a0, 3, verificarCPF9
@@ -176,14 +169,14 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 			j Fim
 			nop
 	
-			erro5:	la $a0, erroDeEntrada1 	#Entrada inv·lida
+			erro5:	la $a0, erroDeEntrada1 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
 				j menuCPF
 				nop
 
-			erro6:	la $a0, erroDeEntrada2 	#Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+			erro6:	la $a0, erroDeEntrada2 	#Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -200,12 +193,12 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 			nop
 			beq $a1, -2, menuPrincipal 	#Clicou no cancelar
 			nop
-			beq $a1, -3, erro8 		#Clicou em ok, mas n„o entrou com nada
+			beq $a1, -3, erro8 		#Clicou em ok, mas n√£o entrou com nada
 			nop
 	
-			bgt $a0, 3, erro7 		#Usu·rio entrou com valor maior que 3
+			bgt $a0, 3, erro7 		#Usu√°rio entrou com valor maior que 3
 			nop
-			ble $a0, 0, erro7 		#Usu·rio entrou com valor menor que 0
+			ble $a0, 0, erro7 		#Usu√°rio entrou com valor menor que 0
 			nop
 			
 			beq $a0, 1, verificarCNPJ		#Verificar Validade de CNPJ
@@ -220,14 +213,14 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 			j Fim
 			nop
 
-			erro7:	la $a0, erroDeEntrada1 	#Entrada inv·lida
+			erro7:	la $a0, erroDeEntrada1 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
 				j menuCNPJ
 				nop
 
-			erro8:	la $a0, erroDeEntrada2 	#Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+			erro8:	la $a0, erroDeEntrada2 	#Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -241,15 +234,15 @@ menuPrincipal:	la $a0, stringMenuPrincipal
 #Verifica se tem nove digitos	
 verificarRG:	la $a0, entreRG
 		la $a1,	RG
-		li $a2, 10 #N˙mero m·ximo a ser lido
+		li $a2, 10 #N√∫mero m√°ximo a ser lido
 		li $v0, 54
 		syscall
 		
-		beq $a1, -2, menuRG #O usu·rio clicou em cancelar, ent„o volta
+		beq $a1, -2, menuRG #O usu√°rio clicou em cancelar, ent√£o volta
 		nop
-		beq $a1, -3, erro9 #O usu·rio clicou em ok, mas n„o entrou com nenhum valor
+		beq $a1, -3, erro9 #O usu√°rio clicou em ok, mas n√£o entrou com nenhum valor
 		nop
-		beq $a1, -4, erro10 #O usu·rio entrou com um valor acima de 9 digitos
+		beq $a1, -4, erro10 #O usu√°rio entrou com um valor acima de 9 digitos
 		nop
 		
 		la $a0, RG
@@ -283,14 +276,14 @@ verificarRG:	la $a0, entreRG
 				j menuRG
 				nop
 				
-		erro9:	la $a0, erroDeEntrada3 	#Entrada inv·lida
+		erro9:	la $a0, erroDeEntrada3 	#Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j verificarRG
 			nop
 			
-		erro10:		la $a0, erroRG 	#Entrada inv·lida
+		erro10:		la $a0, erroRG 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -315,14 +308,14 @@ contCaracter:	lbu $t0, 0($a0)
 calcRG:		li $t2, 0 #inicializa resultado
 		li $s0, 2 #inicializa peso da casa
 		li $s1, 10 #inicializa 
-		la $t0, RG #carrega endereÁo do RG em $t0
-		la $t4, RGNum #Carrega endereÁo do RGNum em $t4
+		la $t0, RG #carrega endere√ßo do RG em $t0
+		la $t4, RGNum #Carrega endere√ßo do RGNum em $t4
 		
 		for:	beq $s0, $s1, continue1
 			nop
 				lbu $t1, 0($t0)
-				addi $t1, $t1, -48 #ASCII em numÈrico
-				sb $t1, 0($t4) #Reescreve na memÛria em numero
+				addi $t1, $t1, -48 #ASCII em num√©rico
+				sb $t1, 0($t4) #Reescreve na mem√≥ria em numero
 				mult $t1, $s0 #Multiplica pelo peso da casa
 				mflo $t1 
 				add $t2, $t2, $t1 #soma:=soma+calculo
@@ -336,8 +329,8 @@ calcRG:		li $t2, 0 #inicializa resultado
 				
 		continue1:	beq $a0, 1, sairCalcRG
 				nop
-					lbu $t1, 0($t0) #Transformando o ˙ltimo digito em decimal
-					################# Verifica se o ultimo digito È x ou X
+					lbu $t1, 0($t0) #Transformando o √∫ltimo digito em decimal
+					################# Verifica se o ultimo digito √© x ou X
 					beq $t1, 88, transfDigitoX
 					nop
 						beq $t1, 120, transfDigitoX
@@ -348,7 +341,7 @@ calcRG:		li $t2, 0 #inicializa resultado
 					transfDigitoX:	li $t1, 10
 							j continue3
 							nop
-					################# Verifica de o ultimo digito È 0
+					################# Verifica de o ultimo digito √© 0
 					continue0:	beq $t1, 48, transfDigito11
 							nop
 								j continue2
@@ -356,9 +349,9 @@ calcRG:		li $t2, 0 #inicializa resultado
 					transfDigito11:	li $t1, 11
 							j continue3
 							nop
-					################# Transforma ASCII em numero e escreve na memÛria		
+					################# Transforma ASCII em numero e escreve na mem√≥ria		
 					continue2:	addi $t1, $t1, -48
-					continue3:	sb $t1, 0($t4) #Reescreve na memÛria em numero
+					continue3:	sb $t1, 0($t4) #Reescreve na mem√≥ria em numero
 				
 			sairCalcRG:	li $s1, 11 #Carrega 11 em $s1
 					div $t2, $s1 #Divide resultado por 11
@@ -372,7 +365,7 @@ nop
 verifValRG:	la $t0, RG
 		lbu $t0, 8($t0)
 		
-		############################# verifica se o ultimo digito È x ou X
+		############################# verifica se o ultimo digito √© x ou X
 		beq $t0, 88, digitoX
 		nop
 			beq $t0, 120, digitoX
@@ -382,7 +375,7 @@ verifValRG:	la $t0, RG
 		digitoX:	li $t0, 10
 				j continueDigitoX
 				nop
-		############################## verifica de o ultimo digito È 0
+		############################## verifica de o ultimo digito √© 0
 		continue4:	beq $t0, 48, digito11 
 				nop
 					j continueVerifVal
@@ -391,7 +384,7 @@ verifValRG:	la $t0, RG
 				j continueDigitoX
 				nop
 		##############################
-		continueVerifVal:	addi $t0, $t0, -48 #transforma ASCII em numero e escreve na memÛria 
+		continueVerifVal:	addi $t0, $t0, -48 #transforma ASCII em numero e escreve na mem√≥ria 
 		continueDigitoX:	beq $a0, $t0, valido
 					nop
 						li $v0, 0
@@ -506,15 +499,15 @@ imprimeResultado:	li $v0, 55
 #Verifica se tem nove digitos	
 verificarRG8:	la $a0, entreRG8
 		la $a1,	RG
-		li $a2, 9 #N˙mero m·ximo a ser lido
+		li $a2, 9 #N√∫mero m√°ximo a ser lido
 		li $v0, 54
 		syscall
 		
-		beq $a1, -2, menuRG #O usu·rio clicou em cancelar, ent„o volta
+		beq $a1, -2, menuRG #O usu√°rio clicou em cancelar, ent√£o volta
 		nop
-		beq $a1, -3, erro9a #O usu·rio clicou em ok, mas n„o entrou com nenhum valor
+		beq $a1, -3, erro9a #O usu√°rio clicou em ok, mas n√£o entrou com nenhum valor
 		nop
-		beq $a1, -4, erro10a #O usu·rio entrou com um valor acima de 9 digitos
+		beq $a1, -4, erro10a #O usu√°rio entrou com um valor acima de 9 digitos
 		nop
 		
 		la $a0, RG
@@ -547,14 +540,14 @@ verificarRG8:	la $a0, entreRG8
 				j menuRG
 				nop
 				
-		erro9a:	la $a0, erroDeEntrada3 	#Entrada inv·lida
+		erro9a:	la $a0, erroDeEntrada3 	#Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j verificarRG8
 			nop
 			
-		erro10a:	la $a0, erroRG8 	#Entrada inv·lida
+		erro10a:	la $a0, erroRG8 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -563,7 +556,7 @@ verificarRG8:	la $a0, entreRG8
 				nop	
 														
 digitoVerificador:	la $t0, RG
-			############################# verifica se o ultimo digito È x ou X
+			############################# verifica se o ultimo digito √© x ou X
 			beq $a0, 10, digX
 			nop
 				beq $a0, 11, dig11
@@ -649,7 +642,7 @@ nop
 																														
 ############################################################# RG ###################################################################################
 ############################################################# parte 3 ##############################################################################
-############################################################# gerar rgs v·lidos ####################################################################
+############################################################# gerar rgs v√°lidos ####################################################################
 
 gerAutomatico:	la $t0, RG
 		li $s0, 0
@@ -657,7 +650,7 @@ gerAutomatico:	la $t0, RG
 		gerad:	beq $s0, 8, fimGerad
 			nop	
 				li $a0, 0 #de 0
-				li $a1, 9 #atÈ 9
+				li $a1, 9 #at√© 9
 				li $v0, 42 #random
 				syscall 
 			
@@ -692,15 +685,15 @@ gerAutomatico:	la $t0, RG
 ############################################################# verificar validade CPF ################################################################			
 verificarCPF:	la $a0, entreCPF
 		la $a1,	CPF
-		li $a2, 12 #N˙mero m·ximo a ser lido
+		li $a2, 12 #N√∫mero m√°ximo a ser lido
 		li $v0, 54
 		syscall
 		
-		beq $a1, -2, menuCPF #O usu·rio clicou em cancelar, ent„o volta
+		beq $a1, -2, menuCPF #O usu√°rio clicou em cancelar, ent√£o volta
 		nop
-		beq $a1, -3, erro9c #O usu·rio clicou em ok, mas n„o entrou com nenhum valor
+		beq $a1, -3, erro9c #O usu√°rio clicou em ok, mas n√£o entrou com nenhum valor
 		nop
-		beq $a1, -4, erro10c #O usu·rio entrou com um valor acima de 9 digitos
+		beq $a1, -4, erro10c #O usu√°rio entrou com um valor acima de 9 digitos
 		nop
 		
 		la $a0, CPF
@@ -741,14 +734,14 @@ verificarCPF:	la $a0, entreCPF
 					j menuCPF
 		nop
 				
-		erro9c:	la $a0, erroDeEntrada3 	#Entrada inv·lida
+		erro9c:	la $a0, erroDeEntrada3 	#Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j verificarCPF
 			nop
 			
-		erro10c:	la $a0, erroCPF #Entrada inv·lida
+		erro10c:	la $a0, erroCPF #Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -760,14 +753,14 @@ verificarCPF:	la $a0, entreCPF
 calcCPF:	li $t2, 0 #inicializa resultado
 		li $s0, 10 #inicializa peso da casa
 		li $s1, 1 #ultima peso de casa
-		la $t0, CPF #carrega endereÁo do CPF em $t0
-		#la $t4, CPFNum #Carrega endereÁo do CPFNum em $t4
+		la $t0, CPF #carrega endere√ßo do CPF em $t0
+		#la $t4, CPFNum #Carrega endere√ßo do CPFNum em $t4
 		
 		forCPF:	beq $s0, $s1, continue1CPF
 			nop
 				lbu $t1, 0($t0)
-				addi $t1, $t1, -48 #ASCII em numÈrico
-				#sb $t1, 0($t4) #Escreva na memÛria em numero
+				addi $t1, $t1, -48 #ASCII em num√©rico
+				#sb $t1, 0($t4) #Escreva na mem√≥ria em numero
 				mult $t1, $s0 #Multiplica pelo peso da casa
 				mflo $t1
 				addu $t2, $t2, $t1 #soma:=soma+calculo
@@ -793,16 +786,16 @@ calcCPF:	li $t2, 0 #inicializa resultado
 				
 		continue2CPF:	li $s0, 11 #inicializa peso da casa
 				li $s1, 2  #ultima peso de casa
-				la $t0, CPF #carrega endereÁo do CPF em $t0
+				la $t0, CPF #carrega endere√ßo do CPF em $t0
 				li $t2, 0 #Resultado
-				la $t4, CPFNum #Carrega endereÁo do CPFNum em $t4
+				la $t4, CPFNum #Carrega endere√ßo do CPFNum em $t4
 				
 				
 				forCPF2:	beq $s0, $s1, continue3CPF
 						nop
 							lbu $t1, 0($t0)
-							addi $t1, $t1, -48 #ASCII em numÈrico
-							sb $t1, 0($t4) #Escreva na memÛria em numero
+							addi $t1, $t1, -48 #ASCII em num√©rico
+							sb $t1, 0($t4) #Escreva na mem√≥ria em numero
 							mult $t1, $s0 #Multiplica pelo peso da casa
 							mflo $t1
 							addu $t2, $t2, $t1 #soma:=soma+calculo
@@ -979,15 +972,15 @@ nop
 #Verifica se tem nove digitos	
 verificarCPF9:	la $a0, entreCPF9
 		la $a1,	CPF
-		li $a2, 10 #N˙mero m·ximo a ser lido
+		li $a2, 10 #N√∫mero m√°ximo a ser lido
 		li $v0, 54
 		syscall
 		
-		beq $a1, -2, menuCPF #O usu·rio clicou em cancelar, ent„o volta
+		beq $a1, -2, menuCPF #O usu√°rio clicou em cancelar, ent√£o volta
 		nop
-		beq $a1, -3, erro9b #O usu·rio clicou em ok, mas n„o entrou com nenhum valor
+		beq $a1, -3, erro9b #O usu√°rio clicou em ok, mas n√£o entrou com nenhum valor
 		nop
-		beq $a1, -4, erro10b #O usu·rio entrou com um valor acima de 9 digitos
+		beq $a1, -4, erro10b #O usu√°rio entrou com um valor acima de 9 digitos
 		nop
 		
 		la $a0, CPF
@@ -1021,14 +1014,14 @@ verificarCPF9:	la $a0, entreCPF9
 				j menuCPF
 				nop
 				
-		erro9b:	la $a0, erroDeEntrada3 	#Entrada inv·lida
+		erro9b:	la $a0, erroDeEntrada3 	#Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j verificarCPF9
 			nop
 			
-		erro10b:	la $a0, erroCPF9 	#Entrada inv·lida
+		erro10b:	la $a0, erroCPF9 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -1115,14 +1108,14 @@ nop
 	
 ############################################################# CPF ###################################################################################
 ############################################################# parte 3 ##############################################################################
-############################################################# gerar CPFs v·lidos ####################################################################
+############################################################# gerar CPFs v√°lidos ####################################################################
 gerAutomaticoCPF:	la $t0, CPF
 			li $s0, 0
 	
 			geradCPF:	beq $s0, 9, fimGeradCPF
 			nop	
 				li $a0, 0 #de 0
-				li $a1, 9 #atÈ 9
+				li $a1, 9 #at√© 9
 				li $v0, 42 #random
 				syscall 
 			
@@ -1140,10 +1133,10 @@ gerAutomaticoCPF:	la $t0, CPF
 						
 ############################################################# Regiao CPF ####################################################################								
 regiao:
-	la $s0, CPFString #Carrega endereÁo do CPF
-	lb $t0, 17($s0) #Carrega o novo dÌgito do cpf
+	la $s0, CPFString #Carrega endere√ßo do CPF
+	lb $t0, 17($s0) #Carrega o novo d√≠gito do cpf
 	addiu $t0, $t0, -48 #Convertendo pra ASCII
-	addiu $s0, $s0, 30 #Apontando para o ˙ltimo espaÁo na memÛria
+	addiu $s0, $s0, 30 #Apontando para o √∫ltimo espa√ßo na mem√≥ria
 
 	beq $t0, 0, reg0
 	nop
@@ -1380,15 +1373,15 @@ nop
 ############################################################# verificar validade CNPJ ################################################################			
 verificarCNPJ:	la $a0, entreCNPJ
 		la $a1,	CNPJ
-		li $a2, 15 #N˙mero m·ximo a ser lido
+		li $a2, 15 #N√∫mero m√°ximo a ser lido
 		li $v0, 54
 		syscall
 		
-		beq $a1, -2, menuCNPJ #O usu·rio clicou em cancelar, ent„o volta
+		beq $a1, -2, menuCNPJ #O usu√°rio clicou em cancelar, ent√£o volta
 		nop
-		beq $a1, -3, erro9d #O usu·rio clicou em ok, mas n„o entrou com nenhum valor
+		beq $a1, -3, erro9d #O usu√°rio clicou em ok, mas n√£o entrou com nenhum valor
 		nop
-		beq $a1, -4, erro10d #O usu·rio entrou com um valor acima de 9 digitos
+		beq $a1, -4, erro10d #O usu√°rio entrou com um valor acima de 9 digitos
 		nop
 		
 		la $a0, CNPJ
@@ -1423,14 +1416,14 @@ verificarCNPJ:	la $a0, entreCNPJ
 					j menuCNPJ
 		nop
 				
-		erro9d:	la $a0, erroDeEntrada3 	#Entrada inv·lida
+		erro9d:	la $a0, erroDeEntrada3 	#Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j verificarCNPJ
 			nop
 			
-		erro10d:	la $a0, erroCNPJ #Entrada inv·lida
+		erro10d:	la $a0, erroCNPJ #Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -1444,7 +1437,7 @@ calcCNPJ:	li $t2, 0 #inicializa resultado
 		li $s1, 1 #inicializa peso da ultima casa 1
 		li $s2, 9 #inicializa peso da casa 2
 		li $s3, 1 #inicializa peso da ultima casa 2
-		la $t0, CNPJ #Carrega endereÁo de CNPJ
+		la $t0, CNPJ #Carrega endere√ßo de CNPJ
 		
 		forCNPJ:	beq $s0, $s1, continue1CNPJ
 				nop
@@ -1497,14 +1490,14 @@ calcCNPJ:	li $t2, 0 #inicializa resultado
 				li $s1, 1 #inicializa peso da ultima casa 1
 				li $s2, 9 #inicializa peso da casa 2
 				li $s3, 2 #inicializa peso da ultima casa 2
-				la $t0, CNPJ #Carrega endereÁo de CNPJ
-				la $s7, CNPJNum #Carrega endereÁo de CNPJNum em $s7
+				la $t0, CNPJ #Carrega endere√ßo de CNPJ
+				la $s7, CNPJNum #Carrega endere√ßo de CNPJNum em $s7
 				
 				forCNPJ1:	beq $s0, $s1, continue5CNPJ
 						nop
 							lbu $t1, 0($t0) #carrega primeiro digito
 							addi $t1, $t1, -48 #converte ASCII para numero
-							sb $t1, 0($s7) #escreve na memÛria
+							sb $t1, 0($s7) #escreve na mem√≥ria
 							mult $t1, $s0
 							mflo $t1
 							nop
@@ -1521,7 +1514,7 @@ calcCNPJ:	li $t2, 0 #inicializa resultado
 						nop
 							lbu $t1, 0($t0) #carrega primeiro digito
 							addiu $t1, $t1, -48 #converte ASCII para numero
-							sb $t1, 0($s7) #escreve na memÛria
+							sb $t1, 0($s7) #escreve na mem√≥ria
 							mult $t1, $s2 
 							mflo $t1
 							nop
@@ -1707,15 +1700,15 @@ nop
 	
 verificarCNPJ9:	la $a0, entreCNPJ9
 		la $a1,	CNPJ
-		li $a2, 13 #N˙mero m·ximo a ser lido
+		li $a2, 13 #N√∫mero m√°ximo a ser lido
 		li $v0, 54
 		syscall
 		
-		beq $a1, -2, menuCNPJ #O usu·rio clicou em cancelar, ent„o volta
+		beq $a1, -2, menuCNPJ #O usu√°rio clicou em cancelar, ent√£o volta
 		nop
-		beq $a1, -3, erro9e #O usu·rio clicou em ok, mas n„o entrou com nenhum valor
+		beq $a1, -3, erro9e #O usu√°rio clicou em ok, mas n√£o entrou com nenhum valor
 		nop
-		beq $a1, -4, erro10e #O usu·rio entrou com um valor acima de 12 digitos
+		beq $a1, -4, erro10e #O usu√°rio entrou com um valor acima de 12 digitos
 		nop
 		
 		la $a0, CNPJ
@@ -1749,14 +1742,14 @@ verificarCNPJ9:	la $a0, entreCNPJ9
 					j menuCNPJ
 					nop
 				
-		erro9e:	la $a0, erroDeEntrada3 	#Entrada inv·lida
+		erro9e:	la $a0, erroDeEntrada3 	#Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j verificarCNPJ9
 			nop
 			
-		erro10e:	la $a0, erroCNPJ9 	#Entrada inv·lida
+		erro10e:	la $a0, erroCNPJ9 	#Entrada inv√°lida
 				li $a1, 0
 				li $v0, 55
 				syscall
@@ -1876,14 +1869,14 @@ nop
 
 ############################################################# CPF ###################################################################################
 ############################################################# parte 3 ##############################################################################
-############################################################# gerar CPFs v·lidos ####################################################################
+############################################################# gerar CPFs v√°lidos ####################################################################
 gerAutomaticoCNPJ:	la $t0, CNPJ
 			li $s0, 0
 	
 			geradCNPJ:	beq $s0, 8, fimGeradCNPJ
 					nop	
 						li $a0, 0 #de 0
-						li $a1, 9 #atÈ 9
+						li $a1, 9 #at√© 9
 						li $v0, 42 #random
 						syscall 
 			
@@ -1911,7 +1904,7 @@ gerAutomaticoCNPJ:	la $t0, CNPJ
 					addiu $t0, $t0, 1
 					
 					li $a0, 0 #de 0
-					li $a1, 9 #atÈ 9
+					li $a1, 9 #at√© 9
 					li $v0, 42 #random
 					syscall
 					addiu $a0, $a0, 48
