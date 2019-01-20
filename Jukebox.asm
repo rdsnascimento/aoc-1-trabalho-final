@@ -1,26 +1,16 @@
-#	RAFAEL NASCIMENTO 15200084
-#	JUKEBOX: reproduz m˙sicas conforme a escolha do usu·rio.
-#	Habilite pseudo-instruÁıes e delayed branching.
-#	O programa È muito intuitivo, o usu·rio escolhe a m˙sica que deseja tocar, a velocidade
-#	(foi criado com v·rias velocidades, por causa do delay do processador que 
-#	pode variar em cada m·quina). 
-#	#######  Caso seja necess·rio modificar as velocidades, È sÛ modificar o valor de "VelocTempo" que fica dentro do .data na linha 23 ##########
-#	- Figura de ritmo semimÌnima equivale a um tempo no programa (representado por ìUmTempoî).
-#	- Figura de ritmo colcheia equivale a meio tempo no programa (ìMeioTempoî).
-#	- Figura de ritmo semicolcheia equivale a meio tempo da colcheia (ìMeioTempo2î).
-#	- Figura de ritmo mÌnima equivale ‡ soma de duas semimÌnima, ou seja, representado por dois tempos no programa.
-#	- Figura de ritmo semibreve equivale ‡ soma de quatro semimÌnima, ou seja, representado por quatro tempos no programa.
-
+#	Desenvolvido por: Rafael Nascimento
+#	JUKEBOX: reproduz m√∫sicas conforme a escolha do usu√°rio.
+#	Habilite pseudo-instru√ß√µes e delayed branching.
 
 .data
 	instrumento:	.word 0 #Valor Default para o instrumento.
-	stringMenuPrincipal:	.asciiz "JUKEBOX\n\nEscolha a m˙sica:\n1- Miss„o ImpossÌvel\n2- Asa Branca\n3- Super Mario Bros\n4- Atirei o pau no gato\n5- Flinstones\n6- Pantera Cor de Rosa\n7- Titanic\n8- Esse Cara Sou Eu\n9- Hino Nacional Brasileiro\n10- Hino do Corinthians\n11- Chapeuzinho Vermelho\n12- Aquarela\n13- Jingle Bells\n14- Se essa rua fosse minha\n15- Ciranda, Cirandinha\n16- Marcha Soldado\n17- Nona Sinfonia - Bethoven\n18- Noite Feliz\n19- Twinkle, twinkle, little star\n20- Mucama Bonita (Folclore)\n\n"
-	stringMenuInstrumento:	.asciiz "JUKEBOX\n\nEscolha instrumento:\n1- Piano\n2- Organ\n3- Viol„o\n4- Violino\n5- Guitarra\n6- Sinos\n7- Suspense\n8- Flauta\n9- Flauta indigena\n10- Percuss„o\n11- Percuss„o 2\n12- Ninar\n13- Desenho Animado\n14- Brisado\n15- Strings\n16- Passarinhos\n17- Martelo\n18- Panela\n19- Conjunto\n20- Conjunto 2\n21- Guitarra EletrÙnica\n22- Nuvens\n23- Xelophone\n24- Percuss„o 3\n25- Desenho Animado 2\n26- Apito\n\n"
-	escolhaVelocidade:	.asciiz "JUKEBOX\n\nEscolha a velocidade:\n1- Normal\n2- R·pido\n3- Muito R·pido\n4- Devagar\n5- Muito devagar\n\n"
-	erroDeEntrada1:	.asciiz "Entrada inv·lida"
-	erroDeEntrada2: .asciiz "Escolha uma opÁ„o"
+	stringMenuPrincipal:	.asciiz "JUKEBOX\n\nEscolha a m√∫sica:\n1- Miss√£o Imposs√≠vel\n2- Asa Branca\n3- Super Mario Bros\n4- Atirei o pau no gato\n5- Flinstones\n6- Pantera Cor de Rosa\n7- Titanic\n8- Esse Cara Sou Eu\n9- Hino Nacional Brasileiro\n10- Hino do Corinthians\n11- Chapeuzinho Vermelho\n12- Aquarela\n13- Jingle Bells\n14- Se essa rua fosse minha\n15- Ciranda, Cirandinha\n16- Marcha Soldado\n17- Nona Sinfonia - Bethoven\n18- Noite Feliz\n19- Twinkle, twinkle, little star\n20- Mucama Bonita (Folclore)\n\n"
+	stringMenuInstrumento:	.asciiz "JUKEBOX\n\nEscolha instrumento:\n1- Piano\n2- Organ\n3- Viol√£o\n4- Violino\n5- Guitarra\n6- Sinos\n7- Suspense\n8- Flauta\n9- Flauta indigena\n10- Percuss√£o\n11- Percuss√£o 2\n12- Ninar\n13- Desenho Animado\n14- Brisado\n15- Strings\n16- Passarinhos\n17- Martelo\n18- Panela\n19- Conjunto\n20- Conjunto 2\n21- Guitarra Eletr√¥nica\n22- Nuvens\n23- Xelophone\n24- Percuss√£o 3\n25- Desenho Animado 2\n26- Apito\n\n"
+	escolhaVelocidade:	.asciiz "JUKEBOX\n\nEscolha a velocidade:\n1- Normal\n2- R√°pido\n3- Muito R√°pido\n4- Devagar\n5- Muito devagar\n\n"
+	erroDeEntrada1:	.asciiz "Entrada inv√°lida"
+	erroDeEntrada2: .asciiz "Escolha uma op√ß√£o"
 	#################################################################################
-	VelocTempo:	.word 130000 #CASO SEJA NECESS¡RIO MODIFIQUE APENAS ESSE PARAMETRO, QUE IR¡ MODIFICAR AUTOMATICAMENTE TODAS AS VELOCIDADES DE REPRODU«√O.
+	VelocTempo:	.word 130000 #CASO SEJA NECESS√ÅRIO MODIFIQUE APENAS ESSE PARAMETRO, QUE IR√Å MODIFICAR AUTOMATICAMENTE TODAS AS VELOCIDADES DE REPRODU√á√ÉO.
 	#################################################################################
 	umtempo:	.word 0 #Valor default para Figura Musical: Seminima
 	meiotempo:	.word 0 #Valor default para Figura Musical: Colcheia
@@ -39,7 +29,7 @@ nop
 ###########################################################################################################################
 UmTempo:	
 	li $t0, 1
-	lw $t1, umtempo #Baseado na escolha do usu·rio no menu principal
+	lw $t1, umtempo #Baseado na escolha do usu√°rio no menu principal
 	
 	Loop:	beq $t0, $t1, sair
 		nop
@@ -53,7 +43,7 @@ nop
 
 MeioTempo:	
 	li $t0, 1
-	lw $t1, meiotempo #Baseado na escolha do usu·rio no menu principal
+	lw $t1, meiotempo #Baseado na escolha do usu√°rio no menu principal
 	
 	Loop1:	beq $t0, $t1, sair1
 		nop
@@ -66,7 +56,7 @@ nop
 
 MeioTempo2:	
 	li $t0, 1
-	lw $t1, meiotempo2 #Baseado na escolha do usu·rio no menu principal
+	lw $t1, meiotempo2 #Baseado na escolha do usu√°rio no menu principal
 	
 	Loop5:	beq $t0, $t1, sair5
 		nop
@@ -406,13 +396,13 @@ menuPrincipal:
 		nop
 		beq $a1, -2, Fim 	#Clicou no cancelar
 		nop
-		beq $a1, -3, erro2 	#Clicou em ok, mas n„o entrou com nada
+		beq $a1, -3, erro2 	#Clicou em ok, mas n√£o entrou com nada
 		nop
 		
-		bgt $a0, 20, erro1 	#Usu·rio entrou com valor maior que 4
+		bgt $a0, 20, erro1 	#Usu√°rio entrou com valor maior que 4
 		nop
 		
-		ble $a0, 0, erro1 	#Usu·rio entrou com valor menor que 0
+		ble $a0, 0, erro1 	#Usu√°rio entrou com valor menor que 0
 		nop
 		
 		beq $a0, 1, mus1
@@ -456,14 +446,14 @@ menuPrincipal:
 		beq $a0, 20, mus20
 		nop
 		
-		erro1:	la $a0, erroDeEntrada1 #Entrada inv·lida
+		erro1:	la $a0, erroDeEntrada1 #Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j menuPrincipal
 			nop
 
-		erro2:	la $a0, erroDeEntrada2 #Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+		erro2:	la $a0, erroDeEntrada2 #Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 			li $a1, 0
 			li $v0, 55
 			syscall
@@ -841,13 +831,13 @@ velocidade:	la $a0, escolhaVelocidade
 		nop
 		beq $a1, -2, menuPrincipal 	#Clicou no cancelar
 		nop
-		beq $a1, -3, erro2b 	#Clicou em ok, mas n„o entrou com nada
+		beq $a1, -3, erro2b 	#Clicou em ok, mas n√£o entrou com nada
 		nop
 		
-		bgt $a0, 5, erro1b 	#Usu·rio entrou com valor maior que 3
+		bgt $a0, 5, erro1b 	#Usu√°rio entrou com valor maior que 3
 		nop
 		
-		ble $a0, 0, erro1b 	#Usu·rio entrou com valor menor que 0
+		ble $a0, 0, erro1b 	#Usu√°rio entrou com valor menor que 0
 		nop
 		
 		beq $a0, 1, normal
@@ -861,14 +851,14 @@ velocidade:	la $a0, escolhaVelocidade
 		beq $a0, 5, muitoLento
 		nop
 		
-		erro1b:	la $a0, erroDeEntrada1 #Entrada inv·lida
+		erro1b:	la $a0, erroDeEntrada1 #Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j velocidade
 			nop
 
-		erro2b:	la $a0, erroDeEntrada2 #Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+		erro2b:	la $a0, erroDeEntrada2 #Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 			li $a1, 0
 			li $v0, 55
 			syscall
@@ -877,7 +867,7 @@ velocidade:	la $a0, escolhaVelocidade
 			
 		normal:			
 			lw $s2, VelocTempo
-			sw $s2, umtempo #seminÌma
+			sw $s2, umtempo #semin√≠ma
 			
 			div $s2, $s2, 2 #colcheia
 			sw $s2, meiotempo
@@ -890,7 +880,7 @@ velocidade:	la $a0, escolhaVelocidade
 		rapido:	
 			lw $s2, VelocTempo
 			srl $s2, $s2, 1 #divide por 2
-			sw $s2, umtempo #seminÌma
+			sw $s2, umtempo #semin√≠ma
 			
 			div $s2, $s2, 2
 			sw $s2, meiotempo #colcheia
@@ -903,7 +893,7 @@ velocidade:	la $a0, escolhaVelocidade
 		muitoRapido:	
 			lw $s2, VelocTempo 
 			srl $s2, $s2, 2 #divide por 4
-			sw $s2, umtempo #seminÌma
+			sw $s2, umtempo #semin√≠ma
 			
 			div $s2, $s2, 2
 			sw $s2, meiotempo #colcheia
@@ -916,7 +906,7 @@ velocidade:	la $a0, escolhaVelocidade
 		lento:	
 			lw $s2, VelocTempo 
 			sll $s2, $s2, 1 #multiplica por 2
-			sw $s2, umtempo #seminÌma
+			sw $s2, umtempo #semin√≠ma
 			
 			div $s2, $s2, 2
 			sw $s2, meiotempo #colcheia
@@ -930,7 +920,7 @@ velocidade:	la $a0, escolhaVelocidade
 		muitoLento:	
 			lw $s2, VelocTempo 
 			sll $s2, $s2, 2 #multiplica por 4
-			sw $s2, umtempo #seminÌma
+			sw $s2, umtempo #semin√≠ma
 			
 			div $s2, $s2, 2
 			sw $s2, meiotempo #colcheia
@@ -955,13 +945,13 @@ menuInstrumento:
 		nop
 		beq $a1, -2, menuPrincipal 	#Clicou no cancelar
 		nop
-		beq $a1, -3, erro2c 	#Clicou em ok, mas n„o entrou com nada
+		beq $a1, -3, erro2c 	#Clicou em ok, mas n√£o entrou com nada
 		nop
 		
-		bgt $a0, 26, erro1c 	#Usu·rio entrou com valor maior que 4
+		bgt $a0, 26, erro1c 	#Usu√°rio entrou com valor maior que 4
 		nop
 		
-		ble $a0, 0, erro1c	#Usu·rio entrou com valor menor que 0
+		ble $a0, 0, erro1c	#Usu√°rio entrou com valor menor que 0
 		nop
 		
 		beq $a0, 1, instr1
@@ -1018,14 +1008,14 @@ menuInstrumento:
 		nop
 		
 		
-		erro1c:	la $a0, erroDeEntrada1 #Entrada inv·lida
+		erro1c:	la $a0, erroDeEntrada1 #Entrada inv√°lida
 			li $a1, 0
 			li $v0, 55
 			syscall
 			j menuInstrumento
 			nop
 
-		erro2c:	la $a0, erroDeEntrada2 #Usu·rio n„o escolheu nenhuma opÁ„o e deu 'Ok'
+		erro2c:	la $a0, erroDeEntrada2 #Usu√°rio n√£o escolheu nenhuma op√ß√£o e deu 'Ok'
 			li $a1, 0
 			li $v0, 55
 			syscall
@@ -1196,7 +1186,7 @@ nop
 ###################################################################################################################################
 ###################################################################################################################################
 ###################################################################################################################################
-################################################# MISS√O IMPOSSÕVEL ###############################################################
+################################################# MISS√ÉO IMPOSS√çVEL ###############################################################
 MissaoImpossivel:	
 	addi $sp, $sp, -4
 	sw $ra, 0($sp)
