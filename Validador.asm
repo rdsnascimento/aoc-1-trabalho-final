@@ -1,6 +1,6 @@
 #	Desenvolvido_por: Rafael Nascimento 15200084
 #	O Programa eh bem intuitivo. E tem as seguintes funcoes:
-# 	Habilitar pseudo-instruções
+# 	Habilitar pseudo-instrucoes
 
 
 .data
